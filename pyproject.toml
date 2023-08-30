@@ -1,0 +1,45 @@
+# black
+[tool.black]
+line-length = 88
+
+# mypy
+[tool.mypy]
+ignore_missing_imports = true
+
+# isort
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+
+# pylint
+[tool.pylint.MASTER]
+extension-pkg-whitelist = ["numpy"]
+disable = [
+    "C0114",  # missing-module-docstring
+    "C0115",  # missing-class-docstring
+    "C0116",  # missing-function-docstring
+    "W0511",  # fix_me
+    "W0621",  # redefined_outer_name
+]
+
+[tool.pylint.TYPECHECK]
+ignored-modules = ["matplotlib", "numpy"]
+generated-members = ["numpy.*"]
+
+[tool.pylint.FORMAT]
+max-line-length = 88
+max-attributes = 20
+max-public-methods = 20
+max-args = 15
+max-locals = 25
+max-branches = 25
+min-public-methods = 0
+variable-rgx = ["(.*[a-z][a-z0-9_]{1,30}|[a-z_])$"]
+argument-rgx = ["(.*[a-z][a-z0-9_]{1,30}|[a-z_])$"]
+attr-rgx = ["(.*[a-z][a-z0-9_]{1,30}|[a-z_])$"]
+
+[tool.pylint.SIMILARITIES]
+min-similarity-lines = 10

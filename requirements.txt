@@ -1,0 +1,13 @@
+numpy
+scipy
+pandas
+scikit-learn
+matplotlib
+jupyter
+notebook
+
+# dev
+black
+isort
+mypy
+pylint
