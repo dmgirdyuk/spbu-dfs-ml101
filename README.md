@@ -21,4 +21,4 @@ pip install -r requirements.txt
 
 
 ## Контакты
-Дмитрий Гирдюк <dm.girdyuk@gmail.com> <t.me/dmgirdyuk>
+Дмитрий Гирдюк | <dm.girdyuk@gmail.com> | tg @dmgirdyuk
