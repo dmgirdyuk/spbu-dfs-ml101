@@ -1,0 +1,3 @@
+house_prices:  # https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data
+  train_dataset: C:\data\2023_spbu_dfs_ml101\house_prices\train.csv
+  test_dataset: C:\data\2023_spbu_dfs_ml101\house_prices\test.csv
