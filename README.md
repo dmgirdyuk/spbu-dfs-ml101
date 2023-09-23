@@ -20,5 +20,13 @@ pip install -r requirements.txt
 Основы Python
 
 
+### Неделя 2
+Знакомство с пакетами numpy, pandas, matplotlib
+
+
+### Неделя 3
+Введение в машинное обучение
+
+
 ## Контакты
 Дмитрий Гирдюк | tg @dmgirdyuk | <dm.girdyuk@gmail.com>
