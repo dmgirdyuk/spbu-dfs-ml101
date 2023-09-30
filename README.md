@@ -28,5 +28,9 @@ pip install -r requirements.txt
 Введение в машинное обучение
 
 
+### Неделя 4
+Практика: установка окружения python, git
+
+
 ## Контакты
 Дмитрий Гирдюк | tg @dmgirdyuk | <dm.girdyuk@gmail.com>
