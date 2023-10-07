@@ -3,11 +3,12 @@ scipy
 pandas
 scikit-learn
 matplotlib
+seaborn
 jupyter
 notebook
 
 # dev
-black
-isort
-mypy
-pylint
+# black[jupyter]
+# isort
+# mypy
+# pylint

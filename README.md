@@ -32,5 +32,9 @@ pip install -r requirements.txt
 Практика: установка окружения python, git
 
 
+### Неделя 5
+Ликбез по теории вероятностей, обзор sklearn, подготовка данных
+
+
 ## Контакты
 Дмитрий Гирдюк | tg @dmgirdyuk | <dm.girdyuk@gmail.com>
