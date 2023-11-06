@@ -7,9 +7,3 @@ matplotlib
 seaborn
 jupyter
 notebook
-
-# dev
-# black[jupyter]
-# isort
-# mypy
-# pylint
