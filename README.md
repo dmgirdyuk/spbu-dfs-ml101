@@ -48,5 +48,9 @@ pip install -r requirements.txt
 Метрики, валидация, подбор гиперпараметров
 
 
+### Неделя 9
+Решающие деревья
+
+
 ## Контакты
 Дмитрий Гирдюк | tg @dmgirdyuk | <dm.girdyuk@gmail.com>
