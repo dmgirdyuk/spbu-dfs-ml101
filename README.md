@@ -52,5 +52,13 @@ pip install -r requirements.txt
 Решающие деревья
 
 
+### Неделя 10
+Ансамбли
+
+
+### Неделя 11
+Кластеризация
+
+
 ## Контакты
 Дмитрий Гирдюк | tg @dmgirdyuk | <dm.girdyuk@gmail.com>

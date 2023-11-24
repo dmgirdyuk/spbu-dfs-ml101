@@ -3,3 +3,4 @@ house_prices:  # https://www.kaggle.com/competitions/house-prices-advanced-regre
   test_dataset: C:\data\2023_spbu_dfs_ml101\house_prices\test.csv
 wdbc: C:\data\2023_spbu_dfs_ml101\wdbc\data.csv  # https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data/
 mushrooms: C:\data\2023_spbu_dfs_ml101\mushrooms\mushrooms.csv  # https://www.kaggle.com/datasets/uciml/mushroom-classification
+flow_cytometry: C:\data\2023_spbu_dfs_ml101\flow_cytometry
