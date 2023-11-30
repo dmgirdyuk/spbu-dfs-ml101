@@ -3,6 +3,7 @@ scipy
 pandas
 scikit-learn
 category_encoders
+catboost
 matplotlib
 seaborn
 jupyter
