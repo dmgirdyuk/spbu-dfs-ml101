@@ -60,5 +60,9 @@ pip install -r requirements.txt
 Кластеризация
 
 
+### Неделя 12
+Снижение размерности
+
+
 ## Контакты
 Дмитрий Гирдюк | tg @dmgirdyuk | <dm.girdyuk@gmail.com>
