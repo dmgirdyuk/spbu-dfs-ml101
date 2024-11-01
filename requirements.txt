@@ -1,9 +1,9 @@
-numpy
+numpy==1.26  # TODO: cover > 2.0 later
 scipy
 pandas
 scikit-learn
-category_encoders
 catboost
+category_encoders
 matplotlib
 seaborn
 jupyter
