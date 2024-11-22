@@ -44,5 +44,9 @@ pip install -r requirements.txt
 Базовые методы классификации
 
 
+### Неделя 8
+Метрики и валидация
+
+
 ## Контакты
 Дмитрий Гирдюк | tg @dmgirdyuk | <dm.girdyuk@gmail.com>
