@@ -3,7 +3,7 @@ import warnings
 import pandas as pd
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder, RobustScaler  # StandardScaler
+from sklearn.preprocessing import OneHotEncoder, RobustScaler, StandardScaler
 
 
 def prepare_houses_data(
@@ -157,7 +157,7 @@ def _drop_useless_features(
 
     # удаляем столбцы в интервальной шкале с незначительной дисперсией
     df_train_num = df_train.select_dtypes(exclude=["object"])
-    var_thd = VarianceThreshold(threshold=0.05)
+    var_thd = VarianceThreshold(threshold=0.03)
     var_thd.fit(df_train_num)
     low_var_cols = df_train_num.columns[~var_thd.get_support()]  # noqa
     df_train.drop(columns=low_var_cols, inplace=True)
@@ -310,7 +310,7 @@ def _add_ohe_features(
 def _normalize_data(
     df_train: pd.DataFrame, df_test: pd.DataFrame
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    scaler = RobustScaler()  # StandardScaler()
+    scaler = StandardScaler()  # RobustScaler()
     df_train[df_train.columns] = scaler.fit_transform(df_train[df_train.columns])
     df_test[df_train.columns] = scaler.transform(df_test[df_train.columns])
 
