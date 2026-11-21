@@ -11,6 +11,7 @@ def prepare_houses_data(
     df_test: pd.DataFrame,
     y_train: pd.DataFrame,
     y_test: pd.DataFrame,
+    transform_ordinal_features: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     df_train, df_test = _preprocess_data(df_train=df_train, df_test=df_test)
     df_train, df_test, y_train, y_test = _fill_nans(
@@ -19,7 +20,8 @@ def prepare_houses_data(
     df_train, df_test, y_train, y_test = _drop_outliers(
         df_train=df_train, df_test=df_test, y_train=y_train, y_test=y_test
     )
-    df_train, df_test = _transform_features(df_train=df_train, df_test=df_test)
+    if transform_ordinal_features:
+        df_train, df_test = _transform_features(df_train=df_train, df_test=df_test)
     df_train, df_test = _add_features(df_train=df_train, df_test=df_test)
     df_train, df_test = _normalize_data(df_train=df_train, df_test=df_test)
     df_train, df_test = _drop_useless_features(df_train=df_train, df_test=df_test)
@@ -32,6 +34,10 @@ def _preprocess_data(
     df_test: pd.DataFrame,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     for df in (df_train, df_test):
+        # столбец с числовым признаком, который на самом деле можно представить как
+        # категориальный
+        df["MSSubClass"] = df["MSSubClass"].apply(str)
+
         df["Exterior2nd"] = df["Exterior2nd"].replace({"Brk Cmn": "BrkComm"})
 
         # names beginning with numbers are awkward to work with
@@ -151,7 +157,7 @@ def _drop_useless_features(
 
     # удаляем столбцы в интервальной шкале с незначительной дисперсией
     df_train_num = df_train.select_dtypes(exclude=["object"])
-    var_thd = VarianceThreshold(threshold=0.01)
+    var_thd = VarianceThreshold(threshold=0.05)
     var_thd.fit(df_train_num)
     low_var_cols = df_train_num.columns[~var_thd.get_support()]  # noqa
     df_train.drop(columns=low_var_cols, inplace=True)
@@ -219,10 +225,6 @@ def _transform_features(
     df_train: pd.DataFrame, df_test: pd.DataFrame
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     for df in (df_train, df_test):
-        # столбец с числовым признаком, который на самом деле можно представить как
-        # категориальный
-        df["MSSubClass"] = df["MSSubClass"].apply(str)
-
         for col in _ORD_COLS:
             df[col] = df[col].map(_ORDINAL_MAP)
 
