@@ -17,7 +17,7 @@ def prepare_mushrooms_data(
         df_test[columns] = count_encoder.transform(df_test)
 
     standard_scaler = StandardScaler()
-    df_train = standard_scaler.fit_transform(df_train)
+    df_train[columns] = standard_scaler.fit_transform(df_train[columns])
     df_test[columns] = standard_scaler.transform(df_test[columns])
 
     return df_train, df_test

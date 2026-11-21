@@ -3,7 +3,7 @@ import warnings
 import pandas as pd
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder, RobustScaler, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, RobustScaler  # StandardScaler
 
 
 def prepare_houses_data(
@@ -16,11 +16,13 @@ def prepare_houses_data(
     df_train, df_test, y_train, y_test = _fill_nans(
         df_train=df_train, df_test=df_test, y_train=y_train, y_test=y_test
     )
-    df_train, df_test = _drop_useless_features(df_train=df_train, df_test=df_test)
-    df_train, y_train = _drop_outliers(df_train=df_train, y_train=y_train)
+    df_train, df_test, y_train, y_test = _drop_outliers(
+        df_train=df_train, df_test=df_test, y_train=y_train, y_test=y_test
+    )
     df_train, df_test = _transform_features(df_train=df_train, df_test=df_test)
     df_train, df_test = _add_features(df_train=df_train, df_test=df_test)
     df_train, df_test = _normalize_data(df_train=df_train, df_test=df_test)
+    df_train, df_test = _drop_useless_features(df_train=df_train, df_test=df_test)
 
     return df_train, df_test, y_train, y_test
 
@@ -148,10 +150,8 @@ def _drop_useless_features(
     df_test.drop(columns=almost_constant_cat_cols, inplace=True)
 
     # удаляем столбцы в интервальной шкале с незначительной дисперсией
-    # NOTE: следовало это сделать после нормализации, но эффект применения 
-    # тут уже достаточен
     df_train_num = df_train.select_dtypes(exclude=["object"])
-    var_thd = VarianceThreshold(threshold=0.1)
+    var_thd = VarianceThreshold(threshold=0.01)
     var_thd.fit(df_train_num)
     low_var_cols = df_train_num.columns[~var_thd.get_support()]  # noqa
     df_train.drop(columns=low_var_cols, inplace=True)
@@ -173,8 +173,11 @@ def _get_almost_constant_columns(df: pd.DataFrame, dropna: bool = True) -> list[
 
 def _drop_outliers(
     df_train: pd.DataFrame,
+    df_test: pd.DataFrame,
     y_train: pd.DataFrame,
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+    y_test: pd.DataFrame,
+    drop_from_test: bool = True,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     for col, upper_bound in (
         ("LotFrontage", 200),
         ("LotArea", 100000),
@@ -186,7 +189,12 @@ def _drop_outliers(
         df_train = df_train.drop(drop_index, axis=0)
         y_train = y_train.drop(drop_index, axis=0)
 
-    return df_train, y_train
+        if drop_from_test:
+            drop_index = df_test[df_test[col] > upper_bound].index
+            df_test = df_test.drop(drop_index, axis=0)
+            y_test = y_test.drop(drop_index, axis=0)
+
+    return df_train, df_test, y_train, y_test
 
 
 _ORDINAL_MAP = {"Ex": 5, "Gd": 4, "TA": 3, "Fa": 2, "Po": 1, "NA": 0}
@@ -301,7 +309,7 @@ def _normalize_data(
     df_train: pd.DataFrame, df_test: pd.DataFrame
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     scaler = RobustScaler()  # StandardScaler()
-    df_train = scaler.fit_transform(df_train)
+    df_train[df_train.columns] = scaler.fit_transform(df_train[df_train.columns])
     df_test[df_train.columns] = scaler.transform(df_test[df_train.columns])
 
     return df_train, df_test

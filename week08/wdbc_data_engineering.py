@@ -6,7 +6,9 @@ def prepare_wdbc_data(
     df_train: pd.DataFrame, df_test: pd.DataFrame
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     standard_scaler = StandardScaler()
-    df_train = standard_scaler.fit_transform(df_train)
+    df_train[df_train.columns] = standard_scaler.fit_transform(
+        df_train[df_train.columns]
+    )
     df_test[df_train.columns] = standard_scaler.transform(df_test[df_train.columns])
 
     return df_train, df_test
